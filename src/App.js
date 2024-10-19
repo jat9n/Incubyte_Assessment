@@ -16,19 +16,25 @@ function App() {
       let customBreakPoint = numbers.substring(2, breakPointEndIndex);
       breakPoints.push(customBreakPoint);
       numbers = numbers.substring(breakPointEndIndex + 1);
-  }
-  console.log(numbers)
+    }
 
-    let breakPointsRegex = new RegExp(`[${breakPoints.join('')}]`);
+    let breakPointsRegex = new RegExp(`[${breakPoints.join("")}]`);
     const arr = numbers.split(breakPointsRegex);
-    return arr.reduce((acc, crr) => acc + parseInt(crr), 0);
+
+    const negativeIntegers = arr.filter((i) => i < 0);
+
+    return negativeIntegers.length === 0
+      ? arr.reduce((acc, crr) => acc + parseInt(crr), 0)
+      : negativeIntegers;
   };
 
   const handleChange = (e) => setInput(e.target.value);
 
   const handleCalculate = (str) => {
     const sum = add(str);
-    setResult(sum);
+    typeof sum === "number"
+      ? setResult(sum)
+      : setResult(`Error: negative numbers not allowed ${sum.join(", ")}`);
   };
 
   return (
