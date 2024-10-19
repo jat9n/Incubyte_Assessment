@@ -11,6 +11,14 @@ function App() {
     }
     let breakPoints = [",", "\n"];
 
+    if (numbers.startsWith("//")) {
+      let breakPointEndIndex = numbers.indexOf("\n");
+      let customBreakPoint = numbers.substring(2, breakPointEndIndex);
+      breakPoints.push(customBreakPoint);
+      numbers = numbers.substring(breakPointEndIndex + 1);
+  }
+  console.log(numbers)
+
     let breakPointsRegex = new RegExp(`[${breakPoints.join('')}]`);
     const arr = numbers.split(breakPointsRegex);
     return arr.reduce((acc, crr) => acc + parseInt(crr), 0);
