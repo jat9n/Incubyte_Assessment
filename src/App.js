@@ -9,8 +9,10 @@ function App() {
     if (numbers === "") {
       return 0;
     }
+    let breakPoints = [",", "\n"];
 
-    const arr = numbers.split(",");
+    let breakPointsRegex = new RegExp(`[${breakPoints.join('')}]`);
+    const arr = numbers.split(breakPointsRegex);
     return arr.reduce((acc, crr) => acc + parseInt(crr), 0);
   };
 
